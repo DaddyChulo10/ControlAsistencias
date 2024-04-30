@@ -47,7 +47,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item"><a class="nav-link" href="#">Registrar Asistencia</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Alumnos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Faltas y Retardos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Reportes y sanciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Calificaciones</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -66,7 +70,8 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-xxl-8">
                         <div class="text-center my-5">
-                            <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Registrar Asistencia</span></h2>
+                            <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">
+                                    {{ $title ?? 'Sin titulo' }} </span></h2>
 
                             @yield('content')
 

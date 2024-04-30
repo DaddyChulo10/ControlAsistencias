@@ -18,4 +18,16 @@ Route::get('/', function () {
 });
 
 
-Route::get('admin', [App\Http\Controllers\Admin\SeeController::class, 'index'])->name('admin.index');
+
+Route::get('alumnos', [App\Http\Controllers\admin\AlumnosController::class, 'index'])->name('alumnos.index');
+
+
+// Route::get('reportes_sanciones', [App\Http\Controllers\HomeController::class, 'index'])->name('reportes_sanciones.index');
+
+
+// Route::get('calificaciones', [App\Http\Controllers\HomeController::class, 'index'])->name('calificaciones.index');
+
+
+// Route::get('consultas', [App\Http\Controllers\HomeController::class, 'index'])->name('consultas.index');
+
+// Route::get('admin', [App\Http\Controllers\Admin\SeeController::class, 'index'])->name('admin.index');
