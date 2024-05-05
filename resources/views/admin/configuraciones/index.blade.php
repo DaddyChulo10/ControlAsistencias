@@ -95,7 +95,7 @@
                 <form action="{{ route('configuraciones.store.grado_grupo') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cliclo escolar</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Grado y Grupo</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -124,7 +124,7 @@
 <script>
     function gradogrupoEliminar(id) {
         Swal.fire({
-            title: "Seguro de eliminar grado y grupo?",
+            title: "Seguro de eliminar Grado y Grupo?",
             showDenyButton: true,
             showCancelButton: false,
             confirmButtonText: "Si, eliminarlo",
