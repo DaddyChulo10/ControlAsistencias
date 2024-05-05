@@ -42,6 +42,10 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
+
+    {{-- Qrious --}}
+    <script src="https://unpkg.com/qrious@4.0.2/dist/qrious.js"></script>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -62,9 +66,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('configuraciones.index') }}">Configuración</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('alumnos.index')}}">Alumnos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('faltas_retardos.index')}}">Faltas y Retardos</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ route('configuraciones.index') }}">Configuración</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('alumnos.index') }}">Alumnos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('faltas_retardos.index') }}">Faltas y
+                                Retardos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Reportes y sanciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Calificaciones</a></li>
 

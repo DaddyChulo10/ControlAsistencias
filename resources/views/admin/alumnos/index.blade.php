@@ -9,7 +9,8 @@
                     <th>Grado y Grupo</th>
                     <th>Nombre Completo</th>
                     <th>
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAlumno">
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#crearAlumno">
                             <i data-feather="plus"></i>
                         </button>
                     </th>
@@ -23,8 +24,13 @@
                         <td> {{ $item->getGradoGrupo->grado_grupo ?? 'Grado y grupo eliminado' }} </td>
                         <td> {{ $item->nombre_apellido }} </td>
                         <td>
-                            <button type="button" class="btn btn-danger" onclick="alumnoEliminar({{ $item->id }})"><i
-                                    data-feather="trash-2"></i>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#verCodigoQR"
+                                class="btn btn-outline-info"
+                                onclick="verCodigoQR('{{ $item->codigo }}', '{{ $item->nombre_apellido }}')">
+                                <i data-feather="codesandbox"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger"
+                                onclick="alumnoEliminar({{ $item->id }})"><i data-feather="trash-2"></i>
                             </button>
                         </td>
                     </tr>
@@ -35,6 +41,30 @@
 
 
 
+
+
+
+
+    <div class="modal fade" id="verCodigoQR" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="titulodelmodalqr"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img alt="Código QR" id="codigo">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    {{-- <button type="submit" class="btn btn-primary">Guardar Cambios</button> --}}
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="crearAlumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -68,61 +98,75 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function verCodigoQR(codigo, nombre) {
+            $(`#titulodelmodalqr`).text(`Codigo QR del alumno: ${nombre}`);
+
+            new QRious({
+                element: document.querySelector("#codigo"),
+                value: codigo, 
+                size: 200,
+                backgroundAlpha: 0, 
+                foreground: "#000000", 
+                level: "H", 
+            });
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let table = new DataTable('#tablas');
+        });
+
+
+        function alumnoEliminar(id) {
+            Swal.fire({
+                title: "Seguro de eliminar el alumno?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Si, eliminarlo",
+                denyButtonText: `No, cancelar`,
+                icon: "question"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('alumnos.delete') }}",
+                        data: {
+                            id: id
+                        },
+                        // dataType: "dataType",
+                        success: function(response) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Alumno eliminado",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $(`#tr_alumno_${id}`).remove();
+                        },
+                        error: function(xhr, status, error) {
+                            alert(xhr.responseText);
+                        }
+                    });
+
+
+
+                } else if (result.isDenied) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Cancelado",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+            });
+        }
+    </script>
 @endsection
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        let table = new DataTable('#tablas');
-    });
-
-
-    function alumnoEliminar(id) {
-        Swal.fire({
-            title: "Seguro de eliminar el alumno?",
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Si, eliminarlo",
-            denyButtonText: `No, cancelar`,
-            icon: "question"
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('alumnos.delete') }}",
-                    data: {
-                        id: id
-                    },
-                    // dataType: "dataType",
-                    success: function(response) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "Alumno eliminado",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        $(`#tr_alumno_${id}`).remove();
-                    },
-                    error: function(xhr, status, error) {
-                        alert(xhr.responseText);
-                    }
-                });
-
-
-
-            } else if (result.isDenied) {
-
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: "Cancelado",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-            }
-        });
-    }
-</script>
