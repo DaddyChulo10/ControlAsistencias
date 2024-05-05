@@ -99,7 +99,7 @@
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
-                            title: "Ciclo escolar eliminado",
+                            title: "Alumno eliminado",
                             showConfirmButton: false,
                             timer: 1500
                         });

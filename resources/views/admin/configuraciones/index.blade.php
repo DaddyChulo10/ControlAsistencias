@@ -144,7 +144,7 @@
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
-                            title: "Ciclo escolar eliminado",
+                            title: "Grado y Grupo eliminado",
                             showConfirmButton: false,
                             timer: 1500
                         });
