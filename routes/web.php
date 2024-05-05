@@ -28,9 +28,13 @@ Route::get('configuraciones/delete/grado_grupo', [App\Http\Controllers\admin\Con
 
 
 
+/**** Alumnos ****/
 
 
 Route::get('alumnos', [App\Http\Controllers\admin\AlumnosController::class, 'index'])->name('alumnos.index');
+Route::post('alumnos/store', [App\Http\Controllers\admin\AlumnosController::class, 'store'])->name('alumnos.store');
+Route::get('alumnos/delete', [App\Http\Controllers\admin\AlumnosController::class, 'delete'])->name('alumnos.delete');
+
 
 
 // Route::get('reportes_sanciones', [App\Http\Controllers\HomeController::class, 'index'])->name('reportes_sanciones.index');

@@ -24,14 +24,23 @@
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
 
+    {{-- ICONS --}}
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
+    {{-- SWEET ALERT --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- DATA TABLE --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
 </head>
 
@@ -53,9 +62,8 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item"><a class="nav-link"
-                                href="{{ route('configuraciones.index') }}">Configuración</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Alumnos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('configuraciones.index') }}">Configuración</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('alumnos.index')}}">Alumnos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Faltas y Retardos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Reportes y sanciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Calificaciones</a></li>
