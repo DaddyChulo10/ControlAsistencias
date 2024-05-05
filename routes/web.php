@@ -35,6 +35,10 @@ Route::get('alumnos/delete', [App\Http\Controllers\admin\AlumnosController::clas
 
 /**** Faltas y Retardos ****/
 Route::get('faltas_retardos', [App\Http\Controllers\admin\FaltasRetardosController::class, 'index'])->name('faltas_retardos.index');
+Route::get('faltas_retardos/registrar', [App\Http\Controllers\admin\FaltasRetardosController::class, 'registrar'])->name('faltas_retardos.registrar');
+Route::get('faltas_retardos/cargarRegistros', [App\Http\Controllers\admin\FaltasRetardosController::class, 'cargarRegistros'])->name('faltas_retardos.cargarRegistros');
+
+
 
 
 
