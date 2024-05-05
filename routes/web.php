@@ -14,8 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('configuraciones.index');
 });
+
+
+
+/**** Configuraciones ****/
+Route::get('configuraciones', [App\Http\Controllers\admin\ConfiguracionesController::class, 'index'])->name('configuraciones.index');
+Route::post('configuraciones/store/ciclo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'storeCiclo'])->name('configuraciones.store.ciclo');
+Route::get('configuraciones/delete/ciclo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'deleteCiclo'])->name('configuraciones.delete.ciclo');
+Route::post('configuraciones/store/grado_grupo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'storegrado_grupo'])->name('configuraciones.store.grado_grupo');
+Route::get('configuraciones/delete/grado_grupo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'deletegrado_grupo'])->name('configuraciones.delete.grado_grupo');
+
+
 
 
 
