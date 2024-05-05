@@ -64,7 +64,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="{{ route('configuraciones.index') }}">Configuración</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('alumnos.index')}}">Alumnos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Faltas y Retardos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('faltas_retardos.index')}}">Faltas y Retardos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Reportes y sanciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Calificaciones</a></li>
 

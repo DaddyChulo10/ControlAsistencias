@@ -34,6 +34,7 @@ Route::post('alumnos/store', [App\Http\Controllers\admin\AlumnosController::clas
 Route::get('alumnos/delete', [App\Http\Controllers\admin\AlumnosController::class, 'delete'])->name('alumnos.delete');
 
 /**** Faltas y Retardos ****/
+Route::get('faltas_retardos', [App\Http\Controllers\admin\FaltasRetardosController::class, 'index'])->name('faltas_retardos.index');
 
 
 
