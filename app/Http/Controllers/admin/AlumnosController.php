@@ -24,7 +24,8 @@ class AlumnosController extends Controller
         Alumnos::create([
             'codigo' => $request->codigo,
             'nombre_apellido' => $request->nombre_apellido,
-            'grado_grupo_id' => $request->grado_grupo_id
+            'grado_grupo_id' => $request->grado_grupo_id,
+            'sexo' => $request->sexo
         ]);
 
         return back();

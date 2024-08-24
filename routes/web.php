@@ -25,6 +25,9 @@ Route::post('configuraciones/store/ciclo', [App\Http\Controllers\admin\Configura
 Route::get('configuraciones/delete/ciclo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'deleteCiclo'])->name('configuraciones.delete.ciclo');
 Route::post('configuraciones/store/grado_grupo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'storegrado_grupo'])->name('configuraciones.store.grado_grupo');
 Route::get('configuraciones/delete/grado_grupo', [App\Http\Controllers\admin\ConfiguracionesController::class, 'deletegrado_grupo'])->name('configuraciones.delete.grado_grupo');
+Route::post('configuraciones/store/reglas', [App\Http\Controllers\admin\ConfiguracionesController::class, 'storeReglas'])->name('configuraciones.store.reglas');
+Route::get('configuraciones/delete/reglas', [App\Http\Controllers\admin\ConfiguracionesController::class, 'deleteReglas'])->name('configuraciones.delete.reglas');
+
 
 
 
@@ -37,6 +40,7 @@ Route::get('alumnos/delete', [App\Http\Controllers\admin\AlumnosController::clas
 Route::get('faltas_retardos', [App\Http\Controllers\admin\FaltasRetardosController::class, 'index'])->name('faltas_retardos.index');
 Route::get('faltas_retardos/registrar', [App\Http\Controllers\admin\FaltasRetardosController::class, 'registrar'])->name('faltas_retardos.registrar');
 Route::get('faltas_retardos/cargarRegistros', [App\Http\Controllers\admin\FaltasRetardosController::class, 'cargarRegistros'])->name('faltas_retardos.cargarRegistros');
+Route::get('faltas_retardos/validarCodigoQr', [App\Http\Controllers\admin\FaltasRetardosController::class, 'validarCodigoQr'])->name('faltas_retardos.validarCodigoQr');
 
 
 

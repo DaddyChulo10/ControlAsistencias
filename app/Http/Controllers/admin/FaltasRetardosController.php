@@ -58,5 +58,14 @@ class FaltasRetardosController extends Controller
         return $faltas_retardos;
     }
 
+
+    public function validarCodigoQr() 
+    {
+        $codigo = $_GET['codigo'];
+        $alumno = Alumnos::where('codigo', $codigo)->first();
+        return $alumno;
+        // dd($alumno);
+    }
+
    
 }

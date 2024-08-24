@@ -11,7 +11,7 @@ class Alumnos extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'alumnos';
-    protected $fillable = ['codigo', 'grado_grupo_id', 'nombre_apellido'];
+    protected $fillable = ['codigo', 'grado_grupo_id', 'nombre_apellido', 'sexo'];
 
     public function getGradoGrupo()
     {

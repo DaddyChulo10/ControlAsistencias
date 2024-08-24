@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Configuracion\CicloEscolar;
 use App\Models\Configuracion\GradosGrupos;
+use App\Models\Configuracion\Reglas;
+
 use Illuminate\Http\Request;
+
 class ConfiguracionesController extends Controller
 {
     public function index()
@@ -13,13 +17,13 @@ class ConfiguracionesController extends Controller
         $title = 'Configuraciónes';
         $ciclo = CicloEscolar::get();
         $grados_grupos = GradosGrupos::get();
+        $reglas = Reglas::get();
 
-        return view('admin.configuraciones.index', compact('title', 'ciclo', 'grados_grupos'));
+        return view('admin.configuraciones.index', compact('title', 'ciclo', 'grados_grupos', 'reglas'));
     }
 
     public function storeCiclo(Request $request)
     {
-        // dd('aaa');
         CicloEscolar::create([
             'ciclo' => $request->ciclo,
         ]);
@@ -29,29 +33,37 @@ class ConfiguracionesController extends Controller
 
     public function deleteCiclo()
     {
-        // dd('entro');
         $id = $_GET['id'];
         CicloEscolar::find($id)->delete();
     }
 
     public function storegrado_grupo(Request $request)
     {
-        // return $request->all();
         GradosGrupos::create([
             'grado_grupo' => $request->grados_grupos,
-            'ciclo_escolar_id' => $request->ciclo_id, 
-            // 'created_at' => date('Y-m-d H:i:s'),
-            // 'updated_at' => date('Y-m-d H:i:s'),
-            // // 'created_at' => 
-            // 'deleted_at' => '2022-06-06 12:00:00',
+            'ciclo_escolar_id' => $request->ciclo_id,
         ]);
         return redirect()->route('configuraciones.index');
-
     }
 
     public function deletegrado_grupo()
     {
         $id = $_GET['id'];
         GradosGrupos::find($id)->delete();
+    }
+
+    public function storeReglas(Request $request)
+    {
+        Reglas::create([
+            'reglas' => $request->reglas,
+            'sexo' => $request->sexo
+        ]);
+        return redirect()->route('configuraciones.index');
+    }
+
+    public function deleteReglas()
+    {
+        $id = $_GET['id'];
+        Reglas::find($id)->delete();
     }
 }

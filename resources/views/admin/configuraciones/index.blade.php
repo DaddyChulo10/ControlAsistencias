@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <h3>Ciclo Escolar</h3>
             <table class="table table-hover">
                 <thead>
@@ -30,7 +30,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <h3>Grados y Grupos</h3>
             <table class="table table-hover">
                 <thead>
@@ -62,7 +62,69 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-hover" id="tablas">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Categoria</th>
+                            <th>Reglas</th>
+                            <th>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#reglasButton">
+                                    <i data-feather="plus"></i>
+                                </button>
+                            </th>
+                        </tr>
+                        @foreach ($reglas as $item)
+                            <tr id="tr_reglas_{{ $item->id }}">
+                                <td> {{ $loop->iteration }} </td>
+                                <td> {{ $item->reglas }} </td>
+                                <td> {{ $item->sexo }} </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="reglasEliminar({{ $item->id }})"><i data-feather="trash-2"></i>
+                                    </button>
+                                </td>
+                        @endforeach
+                    </thead>
+                </table>
+
+            </div>
+        </div>
     </div>
+
+
+    <div class="modal fade" id="reglasButton" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('configuraciones.store.reglas') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Reglas para el alumno</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Regla</label>
+                        <input type="text" class="form-control" name="reglas" required>
+                        <label>Sexo</label>
+                        <select class="form-select" name="sexo" required>
+                            <option value="F">Femenino</option>
+                            <option value="M">Masculino</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <div class="modal fade" id="cicloCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,7 +137,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
                         <label>Agregar Ciclo escolar</label>
                         <input type="text" class="form-control" name="ciclo" required>
                     </div>
@@ -122,6 +183,58 @@
     </div>
 @endsection
 <script>
+    function reglasEliminar(id) {
+
+        Swal.fire({
+            title: "Seguro de eliminar esta regla?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Si, eliminarlo",
+            denyButtonText: `No, cancelar`,
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('configuraciones.delete.reglas') }}",
+                    data: {
+                        id: id
+                    },
+                    // dataType: "dataType",
+                    success: function(response) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Regla eliminada con exito",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        $(`#tr_reglas_${id}`).remove();
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+
+
+
+            } else if (result.isDenied) {
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Cancelado",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
+        });
+
+
+    }
+
     function gradogrupoEliminar(id) {
         Swal.fire({
             title: "Seguro de eliminar Grado y Grupo?",

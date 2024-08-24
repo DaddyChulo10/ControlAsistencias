@@ -33,7 +33,23 @@
 
 
 
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -90,8 +106,8 @@
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
-
         let scanning = false;
+        let requestSent = false;
 
         document.getElementById('startButton').addEventListener('click', () => {
             if (!scanning) {
@@ -120,6 +136,7 @@
             video.pause();
             video.srcObject.getTracks()[0].stop();
             scanning = false;
+            requestSent = false;
         }
 
         function scanFrame() {
@@ -129,74 +146,46 @@
             const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             const code = jsQR(imageData.data, imageData.width, imageData.height);
 
-            if (code) {
-
-                Swal.fire({
-                    title: `Codigo: ${code.data}`,
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: "Reportar Asistencias",
-                    denyButtonText: `Reportar Retardo`,
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: "GET",
-                            url: "{{ route('faltas_retardos.registrar') }}",
-                            data: {
-                                codigo: code.data,
-                                asistencia: true,
-                                retardo: false,
-                            },
-                            success: function(response) {
-                                cargarTabla()
-                                Swal.fire({
-                                    title: `Detalles`,
-                                    showDenyButton: true,
-                                    showCancelButton: true,
-                                    confirmButtonText: "Uniforme",
-                                    denyButtonText: `Corte de cabello`,
-                                    cancelButtonText: "Cancelar"
-                                }).then((result) => {
-
-                                    if (result.isConfirmed) {
-                                       
-                                    } else if (result.isDenied) {
-                                       
-
-                                    }
-                                }); 
-                            },
-                            error: function(xhr, status, error) {
-                                alert(xhr.responseText);
-                            }
-                        })
-                    } else if (result.isDenied) {
-                        $.ajax({
-                            type: "GET",
-                            url: "{{ route('faltas_retardos.registrar') }}",
-                            data: {
-                                codigo: code.data,
-                                asistencia: false,
-                                retardo: true,
-                            },
-                            success: function(response) {
-                                cargarTabla()
-                                Swal.fire("Changes are not saved", "", "info");
-                            },
-                            error: function(xhr, status, error) {
-                                alert(xhr.responseText);
-                            }
-                        })
-
-                    }
-                });
-
-                // alert('Mensaje del código QR: ' + code.data);
+            if (code && !requestSent) {
+                sendAjaxRequest(code.data);
+                requestSent = true;
+                stopScanning();
             }
-
             requestAnimationFrame(scanFrame);
+        }
+
+
+        function sendAjaxRequest(data) {
+            console.log(data);
+            $.ajax({
+                type: "GET",
+                url: "{{ route('faltas_retardos.validarCodigoQr') }}",
+                data: {
+                    codigo: data
+                },
+                // dataType: "dataType",
+                success: function(response) {
+                    console.log('Respuesta del servidor:', response);
+
+                    if(response) {
+                        alert('Existe el codigo QR');
+                        startScanning();
+                        scanning = false;
+                        requestSent = false;
+                    }else {
+                        alert('No existe el codigo QR');
+                        startScanning();
+                        scanning = false;
+                        requestSent = false;
+                        
+                    }
+
+
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
         }
     </script>
 @endsection

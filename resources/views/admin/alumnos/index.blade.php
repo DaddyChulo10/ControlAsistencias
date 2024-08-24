@@ -8,6 +8,7 @@
                     <th>Codigo</th>
                     <th>Grado y Grupo</th>
                     <th>Nombre Completo</th>
+                    <th>Sexo</th>
                     <th>
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                             data-bs-target="#crearAlumno">
@@ -23,6 +24,7 @@
                         <td> {{ $item->codigo }} </td>
                         <td> {{ $item->getGradoGrupo->grado_grupo ?? 'Grado y grupo eliminado' }} </td>
                         <td> {{ $item->nombre_apellido }} </td>
+                        <td> {{ $item->sexo === 'M' ? 'Masculino' : 'Femenino'}} </td>
                         <td>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#verCodigoQR"
                                 class="btn btn-outline-info"
@@ -81,6 +83,13 @@
                         <br>
                         <label>Nombre y Apellido</label>
                         <input type="text" class="form-control" name="nombre_apellido" required>
+                        <br>
+                        <label>Sexo</label>
+                        <select class="form-select" name="sexo" required>
+                            <option value="">Seleccionar sexo</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
                         <br>
                         <label>Grado y grupo</label>
                         <select class="form-select" name="grado_grupo_id" required>
