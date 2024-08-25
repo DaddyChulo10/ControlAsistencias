@@ -11,7 +11,7 @@ class FaltasRetardos extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'faltas_retardos';
-    protected $fillable = ['alumno_id', 'asistencia', 'retardo', 'fecha', 'hora'];
+    protected $fillable = ['alumno_id', 'asistencia', 'retardo', 'reglas', 'fecha', 'hora'];
 
     public function getAlumno()
     {

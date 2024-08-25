@@ -11,7 +11,7 @@
                     <th>Sexo</th>
                     <th>
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#crearAlumno">
+                            data-bs-target="#crearAlumno" onclick="codigoAleatorio()">
                             <i data-feather="plus"></i>
                         </button>
                     </th>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="modal-body">
                         <label>Codigo</label>
-                        <input type="text" class="form-control" name="codigo" required>
+                        <input type="text" class="form-control" name="codigo" id="codigoAlumnoCreate" required>
                         <br>
                         <label>Nombre y Apellido</label>
                         <input type="text" class="form-control" name="nombre_apellido" required>
@@ -109,6 +109,13 @@
     </div>
 
     <script>
+
+        function codigoAleatorio() {
+            let codigo = Math.floor(Math.random() * 9000000000) + 1000000000 + 2024;
+            console.log(codigo)
+            $("#codigoAlumnoCreate").val(codigo);
+        }
+
         function verCodigoQR(codigo, nombre) {
             $(`#titulodelmodalqr`).text(`Codigo QR del alumno: ${nombre}`);
 
