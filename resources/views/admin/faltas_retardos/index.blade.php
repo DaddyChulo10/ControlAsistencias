@@ -211,13 +211,13 @@
                                     <td>${data[i]['hora']}</td>
                                     <td>
                                         
-                                        ${ data[i]['asistencia'] === 1 ? '<i style="color: green" data-feather="x"></i>' : '<i style="color: red" data-feather="x"></i>' }
+                                        ${ data[i]['asistencia'] === 1 ? '<i style="color: green" data-feather="x"></i>' : '' }
                                     </td>
                                     <td>
-                                        ${data[i]['retardo'] !== 1 ? '<i style="color: red"  data-feather="x"></i>' : '<i  style="color: green" data-feather="x"></i>'}
+                                        ${data[i]['retardo'] !== 1 ? '' : '<i  style="color: red" data-feather="x"></i>'}
                                     </td>
                                     <td>
-                                        ${data[i]['reglas'] !== null ? '<i style="color: red"  data-feather="alert-triangle"></i>' : '<i  style="color: green" data-feather="smile"></i>'}
+                                        ${data[i]['reglas'] !== null ? '<i style="color: red"  data-feather="alert-triangle"></i>' : ''}
                                     </td>
                                 </tr>
                             `
@@ -338,6 +338,7 @@
                 success: function(response) {
                     $('#idNombreDelAlumno').text('Nombre: ' + response?.alumno?.nombre_apellido)
                     $('#idGradoyGrupo').text('Grado y grupo: ' + response?.grado)
+                    $(`#tbodyReglas`).children('tr').remove();
 
                     codigoAlumno = response?.alumno?.codigo;
 

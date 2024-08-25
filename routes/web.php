@@ -43,6 +43,9 @@ Route::get('faltas_retardos/cargarRegistros', [App\Http\Controllers\admin\Faltas
 Route::get('faltas_retardos/validarCodigoQr', [App\Http\Controllers\admin\FaltasRetardosController::class, 'validarCodigoQr'])->name('faltas_retardos.validarCodigoQr');
 
 
+Route::get('consulta-informacion-alumno', [App\Http\Controllers\admin\FaltasRetardosController::class, 'consulta'])->name('consulta-informacion-alumno.index');
+Route::get('consulta-informacion-alumno/buscar', [App\Http\Controllers\admin\FaltasRetardosController::class, 'buscar'])->name('consulta-informacion-alumno.buscar');
+
 
 
 

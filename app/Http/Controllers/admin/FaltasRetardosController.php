@@ -77,4 +77,37 @@ class FaltasRetardosController extends Controller
         // return $alumno;
 
     }
+
+
+    public function consulta()
+    {
+        $title = 'Consulta inforación de su hijo';
+        // $alumnos = Alumnos::get();
+        // $grados_grupos = GradosGrupos::get();
+        return view('admin.consulta.index', compact('title'));
+    }
+
+
+    public function buscar()
+    {
+        $arrayData = [];
+        $codigo = $_GET['codigo'];
+        $alumno = Alumnos::where('codigo', $codigo)->first();
+        $faltasRetardos = FaltasRetardos::where('alumno_id', $alumno->id)->orderBy('id', 'desc')->get();
+        foreach ($faltasRetardos as $key => $item) {
+            if ($item->reglas !== null) {
+                $array = [];
+                $idRegla = json_decode($item->reglas, true);
+                foreach ($idRegla as $key => $value) {
+                    $regla = Reglas::find($value);
+                    array_push($array, $regla->reglas ?? null);
+                }
+                $item['reglas'] = $array;
+            }
+        }
+        $arrayData['alumno'] = $alumno;
+        $arrayData['faltasRetardos'] = $faltasRetardos;
+        $arrayData['gradoGrupo'] = $alumno->getGradoGrupo->grado_grupo;
+        return $arrayData;
+    }
 }
